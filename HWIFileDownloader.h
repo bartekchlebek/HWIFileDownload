@@ -66,6 +66,8 @@ typedef void (^HWIFileDownloaderCancelResumeDataBlock)(NSData *aResumeData);
  @param aMaxConcurrentFileDownloadsCount Maximum number of concurrent downloads. Default: no limit.
  @return HWIFileDownloader.
  */
+- (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount allowCellular:(BOOL)allowCellular;
+- (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate allowCellular:(BOOL)allowCellular;
 - (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount;
 - (instancetype)init __attribute__((unavailable("use initWithDelegate:maxConcurrentDownloads: or initWithDelegate:")));
 + (instancetype)new __attribute__((unavailable("use initWithDelegate:maxConcurrentDownloads: or initWithDelegate:")));

@@ -65,8 +65,17 @@
     return [self initWithDelegate:aDelegate maxConcurrentDownloads:-1];
 }
 
-
 - (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount
+{
+  return [self initWithDelegate:aDelegate maxConcurrentDownloads:aMaxConcurrentFileDownloadsCount allowCellular:YES];
+}
+
+- (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate allowCellular:(BOOL)allowCellular
+{
+  return [self initWithDelegate:aDelegate maxConcurrentDownloads:-1 allowCellular:allowCellular];
+}
+
+- (instancetype)initWithDelegate:(NSObject<HWIFileDownloadDelegate>*)aDelegate maxConcurrentDownloads:(NSInteger)aMaxConcurrentFileDownloadsCount allowCellular:(BOOL)allowCellular
 {
     self = [super init];
     if (self)
@@ -85,11 +94,12 @@
         
         if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
         {
-            NSString *aBackgroundDownloadSessionIdentifier = [NSString stringWithFormat:@"%@.HWIFileDownload", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]];
+            NSString *aBackgroundDownloadSessionIdentifier = [NSString stringWithFormat:@"%@%@.HWIFileDownload", @(allowCellular), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]];
             NSURLSessionConfiguration *aBackgroundConfigObject = nil;
             if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
             {
                 aBackgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:aBackgroundDownloadSessionIdentifier];
+                aBackgroundConfigObject.allowsCellularAccess = allowCellular;
             }
             else
             {
