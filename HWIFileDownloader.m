@@ -885,6 +885,11 @@
     return @{@"bytesPerSecondSpeed" : @(aBytesPerSecondsSpeed), @"remainingTime" : @(aRemainingTimeInterval)};
 }
 
+- (NSArray *)allDownloadItems
+{
+  return self.activeDownloadsDictionary.allValues;
+}
+
 
 #pragma mark - Description
 

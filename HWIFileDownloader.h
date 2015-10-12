@@ -52,6 +52,7 @@ typedef void (^HWIFileDownloaderCancelResumeDataBlock)(NSData *aResumeData);
  */
 @interface HWIFileDownloader : NSObject
 
+- (NSArray *)allDownloadItems;
 
 /**
  Secondary initializer.
